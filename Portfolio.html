@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MD Mahadi Alam | Data Analyst</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #2a2a3a;
+      --accent: #00d4ff;
+      --accent2: #7b61ff;
+      --accent3: #00ffb3;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --heading: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GRADIENT MESH BG ── */
+    .mesh {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .mesh span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+    }
+    .mesh span:nth-child(1) { width: 600px; height: 600px; background: var(--accent); top: -200px; left: -200px; animation: drift1 18s ease-in-out infinite alternate; }
+    .mesh span:nth-child(2) { width: 500px; height: 500px; background: var(--accent2); bottom: -100px; right: -150px; animation: drift2 22s ease-in-out infinite alternate; }
+    .mesh span:nth-child(3) { width: 400px; height: 400px; background: var(--accent3); top: 40%; left: 40%; animation: drift1 15s ease-in-out infinite alternate-reverse; }
+
+    @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(60px, 40px) scale(1.1); } }
+    @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px, -60px) scale(1.08); } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(10,10,15,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--heading);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 5% 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      width: fit-content;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--heading);
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-name .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-bio {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-top: 1.5rem;
+      line-height: 1.8;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #000;
+      font-weight: 700;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.3); }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--heading);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.3rem; }
+
+    @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 5%;
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-label::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--accent); opacity: 0.4; }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .skill-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .skill-card:hover::before { opacity: 0.05; }
+    .skill-icon { font-size: 2rem; margin-bottom: 0.6rem; position: relative; z-index: 1; }
+    .skill-name { font-size: 0.85rem; font-weight: 500; color: var(--text); position: relative; z-index: 1; }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover { transform: translateY(-6px); border-color: rgba(0,212,255,0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .project-card:hover::after { opacity: 1; }
+    .project-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,97,255,0.15));
+      border: 1px solid rgba(0,212,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 0.6rem;
+    }
+    .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .project-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem;
+    }
+    .tag {
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      transition: border-color 0.3s;
+    }
+    .exp-card:hover { border-color: rgba(123,97,255,0.4); }
+    .exp-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(0,212,255,0.5);
+    }
+    .exp-content { flex: 1; }
+    .exp-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .exp-company { color: var(--accent); font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem; }
+    .exp-period { color: var(--muted); font-size: 0.8rem; margin-bottom: 1rem; }
+    .exp-list { list-style: none; }
+    .exp-list li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .exp-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    .edu-card:hover { border-color: rgba(0,255,179,0.3); }
+    .edu-icon {
+      width: 56px; height: 56px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0,255,179,0.15), rgba(0,212,255,0.1));
+      border: 1px solid rgba(0,255,179,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+    }
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .edu-school { color: var(--accent3); font-size: 0.88rem; margin-top: 0.2rem; }
+    .edu-meta { color: var(--muted); font-size: 0.82rem; margin-top: 0.2rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--surface); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .contact-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--heading);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .contact-heading .glow {
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .contact-sub { color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-item-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,97,255,0.15));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .contact-item-info { flex: 1; }
+    .contact-item-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-item-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+    .contact-arrow { color: var(--muted); transition: color 0.2s; }
+    .contact-item:hover .contact-arrow { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="mesh">
+  <span></span><span></span><span></span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Mahadi<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="about">
+  <div id="hero">
+    <div class="hero-tag">Available for Remote Work</div>
+    <h1 class="hero-name">MD Mahadi<br><span class="highlight">Alam</span></h1>
+    <p class="hero-title">Data Analyst</p>
+    <p class="hero-bio">
+      Motivated Data Analyst skilled in SQL, Python, and visualization tools — turning raw data into clear, actionable insights that drive business growth.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:mahadialam138@gmail.com" class="btn btn-primary">✉ Hire Me</a>
+      <a href="#projects" class="btn btn-ghost">View Projects →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">5<span>+</span></span>
+        <span class="stat-label">Projects Built</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">5<span>+</span></span>
+        <span class="stat-label">Tools Mastered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1<span>+</span></span>
+        <span class="stat-label">Years Learning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-label">What I Work With</div>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">SQL</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Power BI</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📗</div>
+        <div class="skill-name">Microsoft Excel</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛢️</div>
+        <div class="skill-name">MySQL</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗃️</div>
+        <div class="skill-name">SQL Server</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📋</div>
+        <div class="skill-name">Google Sheets</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-name">Teamwork</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-label">My Work</div>
+    <h2 class="section-title">Portfolio Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-icon">🛒</div>
+        <div class="project-title">Shopify Sales & Customer Funnel Dashboard</div>
+        <div class="project-desc">Analyzed e-commerce sales data to track customer journey, conversion rates, and revenue trends using interactive dashboards.</div>
+        <div class="project-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">SQL</span>
+          <span class="tag">E-commerce</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🏦</div>
+        <div class="project-title">Bank Loan Report Dashboard</div>
+        <div class="project-desc">Built a comprehensive loan analytics report covering approval rates, risk assessment, and repayment trends for banking stakeholders.</div>
+        <div class="project-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Finance</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🏥</div>
+        <div class="project-title">Hospital Patient Analysis Dashboard</div>
+        <div class="project-desc">Visualized patient demographics, admission patterns, and treatment outcomes to support healthcare decision-making.</div>
+        <div class="project-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">Python</span>
+          <span class="tag">Healthcare</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🚨</div>
+        <div class="project-title">Hospital Emergency Room Dashboard</div>
+        <div class="project-desc">Tracked ER wait times, patient flow, and peak hours to help optimize emergency resource allocation.</div>
+        <div class="project-tags">
+          <span class="tag">Power BI</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Healthcare</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📦</div>
+        <div class="project-title">Product Sales & Stock Dashboard</div>
+        <div class="project-desc">Monitored inventory levels, sales performance, and stock movement to help businesses avoid overstock and stockouts.</div>
+        <div class="project-tags">
+          <span class="tag">Excel</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Retail</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Experience & Education</h2>
+
+    <div style="display:flex; flex-direction:column; gap:1.5rem; margin-bottom:2rem;">
+      <div class="exp-card">
+        <div class="exp-dot"></div>
+        <div class="exp-content">
+          <div class="exp-role">Data Analyst Intern</div>
+          <div class="exp-company">DataSolution360</div>
+          <div class="exp-period">June 2025 – Present</div>
+          <ul class="exp-list">
+            <li>Analyzed datasets and built dashboards using Power BI and Excel</li>
+            <li>Optimized SQL queries for improved data retrieval performance</li>
+            <li>Collaborated on an HR analysis project providing insights into employee performance and retention</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">BSc in Computer Science & Engineering</div>
+        <div class="edu-school">University of Scholars</div>
+        <div class="edu-meta">2nd Year &nbsp;·&nbsp; CGPA: 3.00 &nbsp;·&nbsp; Relevant Course: DBMS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Get In Touch</div>
+        <h2 class="contact-heading">Let's Work<br><span class="glow">Together</span></h2>
+        <p class="contact-sub">Open to remote data analyst roles, freelance projects, and collaborations. Feel free to reach out — I respond within 24 hours.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:mahadialam138@gmail.com" class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">mahadialam138@gmail.com</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <a href="https://linkedin.com/in/mahadialam" target="_blank" class="contact-item">
+          <div class="contact-item-icon">💼</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-value">linkedin.com/in/mahadialam</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <a href="tel:+8801778177816" class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-value">+880 01778 177816</div>
+          </div>
+          <div class="contact-arrow">→</div>
+        </a>
+        <div class="contact-item" style="cursor:default;">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-value">Dhaka, Bangladesh · Remote Worldwide</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 MD Mahadi Alam · Data Analyst · Built with passion 🚀</p>
+</footer>
+
+</body>
+</html>

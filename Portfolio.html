@@ -32,7 +32,6 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
     body::before {
       content: '';
       position: fixed;
@@ -43,7 +42,6 @@
       opacity: 0.4;
     }
 
-    /* ── GRADIENT MESH BG ── */
     .mesh {
       position: fixed;
       inset: 0;
@@ -64,7 +62,6 @@
     @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(60px, 40px) scale(1.1); } }
     @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px, -60px) scale(1.08); } }
 
-    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -97,10 +94,8 @@
     }
     .nav-links a:hover { color: var(--accent); }
 
-    /* ── SECTIONS ── */
     section { position: relative; z-index: 1; }
 
-    /* ── HERO ── */
     #hero {
       min-height: 100vh;
       display: flex;
@@ -212,7 +207,6 @@
 
     @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
 
-    /* ── DIVIDER ── */
     .divider {
       width: 100%;
       height: 1px;
@@ -220,7 +214,6 @@
       margin: 0 auto;
     }
 
-    /* ── SECTION WRAPPER ── */
     .section-wrap {
       max-width: 1200px;
       margin: 0 auto;
@@ -247,7 +240,6 @@
       margin-bottom: 3rem;
     }
 
-    /* ── SKILLS ── */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -290,6 +282,8 @@
       transition: all 0.3s;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .project-card::after {
       content: '';
@@ -318,7 +312,7 @@
       color: var(--heading);
       margin-bottom: 0.6rem;
     }
-    .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; flex: 1; }
     .project-tags {
       display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem;
     }
@@ -332,6 +326,51 @@
       border-radius: 100px;
       letter-spacing: 0.04em;
     }
+
+    /* ── PROJECT FOOTER with links ── */
+    .project-footer {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .project-link.github {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .project-link.github:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.08);
+      color: var(--heading);
+    }
+    .project-link.live {
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.25);
+      color: var(--accent);
+    }
+    .project-link.live:hover {
+      background: rgba(0,212,255,0.15);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* SVG icons inline */
+    .link-icon { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
 
     /* ── EXPERIENCE ── */
     .exp-card {
@@ -371,7 +410,6 @@
     }
     .exp-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
 
-    /* ── EDUCATION ── */
     .edu-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -399,7 +437,6 @@
     .edu-school { color: var(--accent3); font-size: 0.88rem; margin-top: 0.2rem; }
     .edu-meta { color: var(--muted); font-size: 0.82rem; margin-top: 0.2rem; }
 
-    /* ── CONTACT ── */
     #contact { background: var(--surface); }
     .contact-grid {
       display: grid;
@@ -450,7 +487,6 @@
     .contact-arrow { color: var(--muted); transition: color 0.2s; }
     .contact-item:hover .contact-arrow { color: var(--accent); }
 
-    /* ── FOOTER ── */
     footer {
       text-align: center;
       padding: 2rem;
@@ -461,13 +497,11 @@
       z-index: 1;
     }
 
-    /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
@@ -482,7 +516,6 @@
   <span></span><span></span><span></span>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">Mahadi<span>.</span></div>
   <ul class="nav-links">
@@ -494,7 +527,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="about">
   <div id="hero">
     <div class="hero-tag">Available for Remote Work</div>
@@ -526,7 +558,6 @@
 
 <div class="divider"></div>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="section-wrap">
     <div class="section-label">What I Work With</div>
@@ -586,6 +617,16 @@
           <span class="tag">SQL</span>
           <span class="tag">E-commerce</span>
         </div>
+        <div class="project-footer">
+          <a href="https://github.com/mahadialam138/shopify-sales-dashboard" target="_blank" class="project-link github">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" class="project-link live">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 3v2H5v14h14v-9h2v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10zm7-1v6h-2V5.413l-7.293 7.294-1.414-1.414L19.585 4H17V2h4z"/></svg>
+            Live Dashboard
+          </a>
+        </div>
       </div>
 
       <div class="project-card">
@@ -596,6 +637,16 @@
           <span class="tag">Power BI</span>
           <span class="tag">Excel</span>
           <span class="tag">Finance</span>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/mahadialam138/bank-loan-report" target="_blank" class="project-link github">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" class="project-link live">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 3v2H5v14h14v-9h2v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10zm7-1v6h-2V5.413l-7.293 7.294-1.414-1.414L19.585 4H17V2h4z"/></svg>
+            Live Dashboard
+          </a>
         </div>
       </div>
 
@@ -608,6 +659,16 @@
           <span class="tag">Python</span>
           <span class="tag">Healthcare</span>
         </div>
+        <div class="project-footer">
+          <a href="https://github.com/mahadialam138/hospital-patient-analysis" target="_blank" class="project-link github">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" class="project-link live">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 3v2H5v14h14v-9h2v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10zm7-1v6h-2V5.413l-7.293 7.294-1.414-1.414L19.585 4H17V2h4z"/></svg>
+            Live Dashboard
+          </a>
+        </div>
       </div>
 
       <div class="project-card">
@@ -618,6 +679,16 @@
           <span class="tag">Power BI</span>
           <span class="tag">SQL</span>
           <span class="tag">Healthcare</span>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/mahadialam138/hospital-emergency-room" target="_blank" class="project-link github">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" class="project-link live">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 3v2H5v14h14v-9h2v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10zm7-1v6h-2V5.413l-7.293 7.294-1.414-1.414L19.585 4H17V2h4z"/></svg>
+            Live Dashboard
+          </a>
         </div>
       </div>
 
@@ -630,6 +701,16 @@
           <span class="tag">Power BI</span>
           <span class="tag">Retail</span>
         </div>
+        <div class="project-footer">
+          <a href="https://github.com/mahadialam138/product-sales-stock" target="_blank" class="project-link github">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="#" target="_blank" class="project-link live">
+            <svg class="link-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 3v2H5v14h14v-9h2v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10zm7-1v6h-2V5.413l-7.293 7.294-1.414-1.414L19.585 4H17V2h4z"/></svg>
+            Live Dashboard
+          </a>
+        </div>
       </div>
 
     </div>
@@ -638,7 +719,6 @@
 
 <div class="divider"></div>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-wrap">
     <div class="section-label">Career</div>
@@ -673,7 +753,6 @@
 
 <div class="divider"></div>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-wrap">
     <div class="contact-grid">
